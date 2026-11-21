@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="wh_base">
+
+  <!-- Dimensions (meters). Update from your CAD. -->
+  <xacro:property name="body_l" value="0.40"/>
+  <xacro:property name="body_w" value="0.30"/>
+  <xacro:property name="body_h" value="0.10"/>
+  <xacro:property name="body_m" value="5.0"/>
+  <xacro:property name="wheel_r" value="0.05"/>
+  <xacro:property name="wheel_t" value="0.04"/>
+  <xacro:property name="wheel_m" value="0.5"/>
+  <xacro:property name="wheel_y" value="0.19"/>
+  <xacro:property name="caster_r" value="0.03"/>
+  <xacro:property name="caster_m" value="0.1"/>
+  <xacro:property name="clearance" value="0.03"/>
+
+  <xacro:macro name="wheel" params="name y">
+    <link name="${name}_wheel">
+      <visual>
+        <origin xyz="0 0 ${wheel_t/2}" rpy="1.5708 0 0"/>
+        <geometry>
+          <mesh filename="package://wh_description/meshes/wheel.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="dark"><color rgba="0.1 0.1 0.1 1"/></material>
+      </visual>
+      <collision><geometry><cylinder radius="${wheel_r}" length="${wheel_t}"/></geometry></collision>
+      <inertial>
+        <mass value="${wheel_m}"/>
+        <inertia ixx="${wheel_m*(3*wheel_r*wheel_r+wheel_t*wheel_t)/12}" ixy="0" ixz="0"
+                 iyy="${wheel_m*(3*wheel_r*wheel_r+wheel_t*wheel_t)/12}" iyz="0"
+                 izz="${wheel_m*wheel_r*wheel_r/2}"/>
+      </inertial>
+    </link>
+    <joint name="${name}_wheel_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${name}_wheel"/>
+      <origin xyz="0 ${y} 0" rpy="${-pi/2} 0 0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+  </xacro:macro>
+
+  <link name="base_footprint"/>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 ${clearance - wheel_r + body_h/2 + body_h}" rpy="1.5708 0 0"/>
+      <geometry>
+        <mesh filename="package://wh_description/meshes/body.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue"><color rgba="0.1 0.3 0.8 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${clearance - wheel_r + body_h/2}"/>
+      <geometry><box size="${body_l} ${body_w} ${body_h}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 ${clearance - wheel_r + body_h/2}"/>
+      <mass value="${body_m}"/>
+      <inertia ixx="${body_m*(body_w*body_w+body_h*body_h)/12}" ixy="0" ixz="0"
+               iyy="${body_m*(body_l*body_l+body_h*body_h)/12}" iyz="0"
+               izz="${body_m*(body_l*body_l+body_w*body_w)/12}"/>
+    </inertial>
+  </link>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 ${wheel_r}"/>
+  </joint>
+
+  <xacro:wheel name="left" y="${wheel_y}"/>
+  <xacro:wheel name="right" y="${-wheel_y}"/>
+
+  <link name="caster">
+    <visual>
+      <geometry>
+        <mesh filename="package://wh_description/meshes/caster.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <collision><geometry><sphere radius="${caster_r}"/></geometry></collision>
+    <inertial>
+      <mass value="${caster_m}"/>
+      <inertia ixx="${2*caster_m*caster_r*caster_r/5}" ixy="0" ixz="0" iyy="${2*caster_m*caster_r*caster_r/5}" iyz="0" izz="${2*caster_m*caster_r*caster_r/5}"/>
+    </inertial>
+  </link>
+  <joint name="caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster"/>
+    <origin xyz="0.15 0 ${caster_r - wheel_r}"/>
+  </joint>
+
+</robot>

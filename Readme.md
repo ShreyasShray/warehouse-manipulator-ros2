@@ -8,8 +8,8 @@ A simulated warehouse robot with a differential-drive base and a 3-DOF arm. It m
 | Week | Milestone | Status |
 |---|---|---|
 | 1 | Workspace and repo setup | Done |
-| 2 | Chassis CAD, URDF, RViz | In progress |
-| 3 | Gazebo sim with sensors | |
+| 2 | Chassis CAD, URDF, RViz | Done |
+| 3 | Gazebo sim with sensors | In Progress |
 | 4-6 | PID control, EKF | |
 | 7-8 | SLAM, Nav2, trajectory tracking | |
 | 9-11 | Arm CAD, IK, joint control | |
