@@ -30,7 +30,7 @@ source install/setup.bash
 ```
 
 ## Demo
-(Screenshots and videos added here each week)
+![week2 rviz](docs/week2_rviz.png)
 
 ## License
 MIT
