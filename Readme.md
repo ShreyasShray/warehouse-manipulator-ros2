@@ -30,6 +30,8 @@ source install/setup.bash
 ```
 
 ## Demo
+
+Week2 bot design and RViz -
 ![week2 rviz](docs/week2_rviz.png)
 
 ## License
