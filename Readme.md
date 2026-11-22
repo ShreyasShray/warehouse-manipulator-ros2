@@ -9,8 +9,9 @@ A simulated warehouse robot with a differential-drive base and a 3-DOF arm. It m
 |---|---|---|
 | 1 | Workspace and repo setup | Done |
 | 2 | Chassis CAD, URDF, RViz | Done |
-| 3 | Gazebo sim with sensors | In Progress |
-| 4-6 | PID control, EKF | |
+| 3 | Gazebo sim with sensors | Done |
+| 4 | Wheel-speed PID loop tuned, step-response plots | In Progress |
+| 5-6 | PID control, EKF | |
 | 7-8 | SLAM, Nav2, trajectory tracking | |
 | 9-11 | Arm CAD, IK, joint control | |
 | 12-13 | Vision, pick-and-place | |
@@ -33,6 +34,9 @@ source install/setup.bash
 
 Week2 bot design and RViz -
 ![week2 rviz](docs/week2_rviz.png)
+
+Week3 Gazebo sim with rviz laserscan and camera view - 
+![week3 gazebo sim](docs/week3_gazebo.png)
 
 ## License
 MIT

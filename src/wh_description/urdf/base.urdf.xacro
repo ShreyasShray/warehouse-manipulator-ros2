@@ -89,5 +89,5 @@
     <child link="caster"/>
     <origin xyz="0.15 0 ${caster_r - wheel_r}"/>
   </joint>
-
+  <xacro:include filename="gazebo.xacro"/>
 </robot>
